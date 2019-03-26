@@ -13,34 +13,16 @@ public class Frame {
         switchTo().frame($("#mainFrame"));
     }
 
-    public void toTab0Frame(){
-        todefCont();
-        toMainFrame();
-        switchTo().frame($("#Tab0"));
-    }
-
     public void toTab0FrameAcc(){
         todefCont();
         //toMainFrame();
         switchTo().frame( $("#Tab0"));
     }
 
-    public void toTab1Frame(){
-        todefCont();
-        toMainFrame();
-        switchTo().frame($("#Tab1"));
-    }
-
     public void toTab1FrameAcc(){
         todefCont();
         //toMainFrame();
         switchTo().frame($("#Tab1"));
-    }
-
-    public void toTab2Frame(){
-        todefCont();
-        toMainFrame();
-        switchTo().frame($("#Tab2"));
     }
 
     public void toTab2FrameAcc(){

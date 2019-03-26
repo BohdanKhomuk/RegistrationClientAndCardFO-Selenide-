@@ -44,7 +44,6 @@ public class CustomerAccounts {
         frame.toTab3FrameAcc();
 
         //Confirmation window 1
-        ArrayList<String> tabs12 = new ArrayList<> (getWebDriver ().getWindowHandles());
         checkPageAvailability.threePage ("T1" );
         $("#btOk").shouldBe(visible).click ();
 
@@ -91,7 +90,7 @@ public class CustomerAccounts {
         //Special parameters
         $("#bTab3").shouldBe(visible).click ();
         frame.toTab3FrameAcc();
-        if (getPolygon () == 186 || getPolygon () == 53 ){
+        if (getPolygon ( ).equals ( "DB OBMMFOT" )){
             $("#btnOTHERS").shouldBe(visible).click ();
             frame.toTab3FrameAcc();
             $("#HREF_1").shouldBe(visible).click ();
@@ -108,7 +107,7 @@ public class CustomerAccounts {
         }
 
         //Other
-        if ( getPolygon () == 53){
+        if (getPolygon ( ).equals ( "53" )){
             $("#btnOTHERS").shouldBe(visible).click ();
             frame.toTab3Frame();
             $("#HREF_1").shouldBe(visible).click ();

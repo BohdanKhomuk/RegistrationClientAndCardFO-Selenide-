@@ -7,13 +7,15 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class LoginPage {
 
-    public static int getPolygon() {
-        //24  - Test; 40 - RC; 50 - Master//
-        return 50;
+    public static String getPolygon() {
+        String name = $x ( "//h2" ).shouldBe ( visible ).getText ( );
+        System.out.println ( "text " + name );
+        return name;
     }
 
     public void enterInMainPage(String name, String password){
         $("#txtUserName").shouldBe(visible).setValue(name);
+        $("#txtPassword").shouldBe(visible).click ();
         $("#txtPassword").shouldBe(visible).setValue ( password );
         $("#btLogIn").shouldBe(visible).click ();
         $("#btChangDate").shouldBe(visible).click ();
@@ -21,6 +23,7 @@ public class LoginPage {
         $x("(//span[@class = 'k-in'])[2]").shouldBe(visible).click ();
         getWebDriver().navigate ().refresh ();
     }
+
 }
 
 

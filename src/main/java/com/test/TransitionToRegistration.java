@@ -78,7 +78,7 @@ public class TransitionToRegistration {
         $x("//div[@class = 'k-window-content k-content']/div//input[@class ='k-textbox ng-pristine ng-invalid ng-invalid-required']").shouldBe(visible).setValue(newrnk);
         $x("//div[@class = 'k-window-content k-content']/div//button[@class = 'btn btn btn-primary']").shouldBe(visible).click ();
 
-        if ((LoginPage.getPolygon() == 50)||(LoginPage.getPolygon() == 44)||(LoginPage.getPolygon() == 24) ){
+        if ((LoginPage.getPolygon ( ).equals ( "DB MMFOM" ))||(LoginPage.getPolygon ( ).equals ( "DB OBIBANM" ))||(LoginPage.getPolygon ( ).equals ( "DB OBMMFOT" )) ){
             $x("//button[@class = 'delete-confirm k-button k-primary']").shouldBe(visible).click ();
         }
 

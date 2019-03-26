@@ -6,7 +6,6 @@ import com.test.methods.Gender;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.test.LoginPage.getPolygon;
 
 
 public class ClientDetails {
@@ -15,7 +14,7 @@ public class ClientDetails {
     private Gender gender = new Gender();
 
     private void pressClientSex(){
-        String fileName = String.format( "//select[@id = 'ddl_SEX']/option[@value = '%s']", gender.gender );
+        String fileName = String.format( "//select[@id = 'ddl_SEX']/option[@value = '%s']", gender.enterGenderNum () );
         $x(fileName ).click();
     }
 

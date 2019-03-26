@@ -6,10 +6,26 @@ import java.util.Scanner;
 
 public class Gender {
 
-    public int gender = 2; // 1-men, 2-women
+    private String gender = ConfigProperties.getTestProperty ( "gender" );
+
+
+    public String enterGenderNum() {
+        String genderNum = "";
+        if (gender.equals ( "men" )) {
+            genderNum ="1";
+        }
+        else if(gender.equals ( "women" )) {
+            genderNum = "2";
+        }
+        else{
+            System.out.println ( "Enter is not the right to enter a 'man' or a 'women'" );
+        }
+        return genderNum;
+    }
+
 
     public String Name() throws FileNotFoundException {
-        String fileName = String.format( "/Name%s.txt", gender );
+        String fileName = String.format( "/Name%s.txt", enterGenderNum ());
         Scanner sc = new Scanner(new File( RandomWordsAndNumber.class.getResource(fileName).getFile()), "cp1251");
 
         StringBuilder sb = new StringBuilder();
@@ -19,7 +35,7 @@ public class Gender {
         sc.close();
 
         String str1 = sb.toString().replaceAll("\"", "");
-        String[] str = str1.toString().split(", ");
+        String[] str = str1.split(", ");
 
         int n = (int) Math.floor(Math.random() * str.length);
 
@@ -36,7 +52,7 @@ public class Gender {
         sc.close();
 
         String str1 = sb.toString().replaceAll("\"", "");
-        String[] str = str1.toString().split(", ");
+        String[] str = str1.split(", ");
 
         int n = (int) Math.floor(Math.random() * str.length);
 
@@ -44,7 +60,7 @@ public class Gender {
     }
 
     public String Patronymic() throws FileNotFoundException {
-        String fileName = String.format( "/Patronymic%s.txt", gender );
+        String fileName = String.format( "/Patronymic%s.txt", enterGenderNum () );
         Scanner sc = new Scanner(new File( RandomWordsAndNumber.class.getResource(fileName).getFile()), "cp1251");
 
         StringBuilder sb = new StringBuilder();
@@ -54,7 +70,7 @@ public class Gender {
         sc.close();
 
         String str1 = sb.toString().replaceAll("\"", "");
-        String[] str = str1.toString().split(", ");
+        String[] str = str1.split(", ");
 
         int n = (int) Math.floor(Math.random() * str.length);
 

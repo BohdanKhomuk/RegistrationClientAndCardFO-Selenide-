@@ -65,14 +65,14 @@ public class CheckPageAvailability {
         String mainWindows = getWebDriver ().getWindowHandle();
         System.out.println ( "Main_win " + mainWindows );
         switchTo().window(tabs.get(1));
-        SelenideElement elementID = $x("//*[@id]");;
+        SelenideElement elementID = $x("//*[@id]");
         String id = elementID.getAttribute("id");     // for getting id of each element
         System.out.println ( "First_id " + id );
         if (!id.equals ( searchEl )){
             switchTo().window(tabs.get(1)); // первый таб
             String mainWindows1 = getWebDriver ().getWindowHandle();
             System.out.println ( "First_win " + mainWindows1 );
-            SelenideElement elementID1 = $x("//*[@id]");;
+            SelenideElement elementID1 = $x("//*[@id]");
             String id1 = elementID1.getAttribute("id");     // for getting id of each element
             System.out.println ( "Second_id " +id1 );
             if (!id1.equals ( searchEl )){

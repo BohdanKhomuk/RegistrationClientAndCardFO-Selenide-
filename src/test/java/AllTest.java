@@ -156,7 +156,7 @@ public class AllTest {
         Assert.assertEquals( "Критерії ризику", addDetails.getRiskCriteriaText() );
 
         transitionToReg.clickConnectedPeopleBtn();
-        if (getPolygon () == 40 || getPolygon () == 50)
+        if (getPolygon ( ).equals ( "DB RCMMFO" ) || getPolygon ( ).equals ( "DB MMFOM" ))
             Assert.assertEquals( "Пов`язані особи", connectedPeople.getHeadingText() );
 
         transitionToReg.clickClientSegmentsBtn();

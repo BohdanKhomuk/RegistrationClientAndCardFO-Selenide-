@@ -6,8 +6,8 @@ import java.util.Properties;
 
 public class ConfigProperties {
 
-    protected static FileInputStream fileInputStream;
-    protected static Properties PROPERTIES;
+    private static FileInputStream fileInputStream;
+    private static Properties PROPERTIES;
 
     static {
         try {
