@@ -3,6 +3,7 @@ package com.test.registrationCardFO;
 import com.codeborne.selenide.SelenideElement;
 import com.test.methods.CheckPageAvailability;
 import com.test.methods.Frame;
+import com.test.methods.ReadingFromFile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
@@ -13,7 +14,7 @@ import java.util.List;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static com.test.LoginPage.getPolygon;
+
 
 public class CustomerAccounts {
 
@@ -90,7 +91,7 @@ public class CustomerAccounts {
         //Special parameters
         $("#bTab3").shouldBe(visible).click ();
         frame.toTab3FrameAcc();
-        if (getPolygon ( ).equals ( "DB OBMMFOT" )){
+        if (ReadingFromFile.read ( "Polygon.txt" ).equals( "DB OBMMFOT" )){
             $("#btnOTHERS").shouldBe(visible).click ();
             frame.toTab3FrameAcc();
             $("#HREF_1").shouldBe(visible).click ();
@@ -107,7 +108,7 @@ public class CustomerAccounts {
         }
 
         //Other
-        if (getPolygon ( ).equals ( "53" )){
+        if (ReadingFromFile.read ( "Polygon.txt" ).equals( "53" )){
             $("#btnOTHERS").shouldBe(visible).click ();
             frame.toTab3Frame();
             $("#HREF_1").shouldBe(visible).click ();

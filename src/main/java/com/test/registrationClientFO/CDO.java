@@ -10,6 +10,6 @@ public class CDO {
 
     public String getHeadingText(){
         frame.tabFrame( "Tab8" );
-        return $x(("///h1[text() = 'Підключення користувачів до Систем Дистанційного Обслуговування (СДО)']")).getText ();
+        return $x(("//*[@id = 'clmode']/following-sibling::h1")).getText ();
     }
 }

@@ -1,6 +1,6 @@
+import com.codeborne.selenide.junit.ScreenShooter;
+import com.codeborne.selenide.junit.TextReport;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import com.codeborne.selenide.testng.ScreenShooter;
-import com.codeborne.selenide.testng.TextReport;
 import com.test.LoginPage;
 import com.test.MainPage;
 import com.test.TransitionToRegistration;
@@ -13,15 +13,11 @@ import com.test.registrationClientFO.*;
 import io.github.bonigarcia.wdm.DriverManagerType;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.testng.Assert;
-import org.testng.annotations.*;
+import org.junit.*;
+import org.junit.rules.TestRule;
 
 import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.Selenide.open;
-import static com.test.LoginPage.getPolygon;
-
-
-@Listeners({TextReport.class, ScreenShooter.class})
 
 public class AllTest {
 
@@ -42,11 +38,10 @@ public class AllTest {
     private Gender gender = new Gender ();
     private RandomWordsAndNumber random = new RandomWordsAndNumber();
 
-    @BeforeMethod
-        public void testReport() {
-        TextReport.onSucceededTest = true;
-        TextReport.onFailedTest = true;
-    }
+    @Rule
+    public ScreenShooter screenShooter = ScreenShooter.failedTests().to("test-results/reports");
+    @Rule
+    public TestRule report = new TextReport ().onFailedTest(true).onSucceededTest(false);
 
     @BeforeClass
     public static void setup() {
@@ -56,12 +51,13 @@ public class AllTest {
         startMaximized = true;
         InternetExplorerDriverManager.getInstance( DriverManagerType.IEXPLORER).arch32().setup();
         open("/");
-        loginPage.enterInMainPage ( ConfigProperties.getTestProperty ( "login" ), ConfigProperties.getTestProperty ( "password" ) );
 
+        loginPage.writePolygon ();
+        loginPage.enterInMainPage ( ConfigProperties.getTestProperty ( "login" ), ConfigProperties.getTestProperty ( "password" ) );
     }
 
-    @Test(priority = 1)
-    public void createClientCard() throws Exception {
+    @Test
+    public void firstTest_createClientCard() throws Exception {
         mainPage.enterFunction ( "Реєстрація Клієнтів і Рахунків" + "\n" );
         transitionToReg.goingToRegister ( RandomWordsAndNumber.randomNumber ( 10, 99999 ) );
         //      Basic details
@@ -95,8 +91,8 @@ public class AllTest {
         System.out.println((char) 27 + "[32m[Passed]----------Тест завершено успішно!----------[Passed]" + (char) 27 + "[0m");
     }
 
-    @Test(priority = 2) //enabled = false)
-    public void customerAccountTest(){
+    @Test //enabled = false)
+    public void secondTest_customerAccountTest(){
         mainPage.enterFunction( "Реєстрація Клієнтів і Рахунків" + "\n" );
         System.out.println((char) 27 + "[33mСтворення рахунку клієнта(ФО)" + (char) 27 + "[0m");
 
@@ -124,8 +120,8 @@ public class AllTest {
 
     }
 
-    @Test (priority = 3) //enabled = false)
-    public void editingClientCard() {
+    @Test //enabled = false)
+    public void thirdTest_editingClientCard() {
 
         mainPage.enterFunction( "Реєстрація Клієнтів і Рахунків" + "\n" );
         System.out.println((char) 27 + "[33mРедагування карточки клієнта(ФО)" + (char) 27 + "[0m");
@@ -156,24 +152,32 @@ public class AllTest {
         Assert.assertEquals( "Критерії ризику", addDetails.getRiskCriteriaText() );
 
         transitionToReg.clickConnectedPeopleBtn();
-        if (getPolygon ( ).equals ( "DB RCMMFO" ) || getPolygon ( ).equals ( "DB MMFOM" ))
+        if (ReadingFromFile.read ( "Polygon.txt" ).equals ( "DB RCMMFO" ) || ReadingFromFile.read ( "Polygon.txt" ).equals ( "DB MMFOM" ))
             Assert.assertEquals( "Пов`язані особи", connectedPeople.getHeadingText() );
 
         transitionToReg.clickClientSegmentsBtn();
         Assert.assertEquals( "Загальна інформація", clientSegments.getHeadingText() );
 
         transitionToReg.clickCDOBtn();
-        //Assert.assertEquals( "Підключення користувачів до Систем Дистанційного Обслуговування (СДО)", cdo.getHeadingText() );
+        Assert.assertEquals( "Підключення користувачів до Систем Дистанційного Обслуговування (СДО)", cdo.getHeadingText() );
 
         transitionToReg.confirmationReg();
     }
 
-    @Test(priority = 4) //enabled = false)
-    public void closeClientCard(){
+    @Test
+    public void fourthTest_closeClientCard(){
         mainPage.enterFunction( "Реєстрація Клієнтів і Рахунків" + "\n" );
         System.out.println((char) 27 + "[33mРеєстрація клієнта(ФО)" + (char)27 + "[0m");
         System.out.println((char) 27 + "[33mЗакриття карточки клієнта(ФО)" + (char) 27 + "[0m");
         transitionToReg.closeClient(ReadingFromFile.read( "ClientRNK.txt" ));
+    }
+
+    @Test
+    public void wwwTest_cardClosingCheck(){
+        mainPage.enterFunction( "Реєстрація Клієнтів і Рахунків" + "\n" );
+        System.out.println((char) 27 + "[33mПеревірка закриття карточки клієнта(ФО)" + (char) 27 + "[0m");
+        transitionToReg.findCard ( ReadingFromFile.read( "ClientRNK.txt" ) );
+        Assert.assertEquals ( "немає записів :(", transitionToReg.checkClose());
     }
 
     @AfterClass

@@ -11,6 +11,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class TransitionToRegistration {
 
     private Frame frame = new Frame ();
+    private static LoginPage loginPage = new LoginPage();
 
 
     public void clickTaxpayerDetalisBtn(){
@@ -78,8 +79,8 @@ public class TransitionToRegistration {
         $x("//div[@class = 'k-window-content k-content']/div//input[@class ='k-textbox ng-pristine ng-invalid ng-invalid-required']").shouldBe(visible).setValue(newrnk);
         $x("//div[@class = 'k-window-content k-content']/div//button[@class = 'btn btn btn-primary']").shouldBe(visible).click ();
 
-        if ((LoginPage.getPolygon ( ).equals ( "DB MMFOM" ))||(LoginPage.getPolygon ( ).equals ( "DB OBIBANM" ))||(LoginPage.getPolygon ( ).equals ( "DB OBMMFOT" )) ){
-            $x("//button[@class = 'delete-confirm k-button k-primary']").shouldBe(visible).click ();
+        if ((ReadingFromFile.read ( "Polygon.txt" ).equals ( "DB MMFOM" ))||(ReadingFromFile.read ( "Polygon.txt" ).equals  ( "DB OBIBANM" )) ) {
+            $x ( "//button[@class = 'delete-confirm k-button k-primary']" ).shouldBe ( visible ).click ( );
         }
 
         $x("//button[@class = 'k-button']").shouldBe(visible).click ();
@@ -100,7 +101,7 @@ public class TransitionToRegistration {
         $x("//button[@class = 'delete-confirm k-button k-primary']").shouldBe(visible).click ();
     }
 
-    private void findCard(String rnk){
+    public void findCard(String rnk){
         frame.toMainFrame();
         $x("//th[@data-field='Id']/a[1]/span").shouldBe(visible).click ();
         $x("//input[@class='k-formatted-value k-input']").shouldBe(visible).setValue(rnk);
@@ -127,5 +128,9 @@ public class TransitionToRegistration {
         $x("//span[@class = 'ng-binding']").shouldBe(visible).click ();
         //executeJavaScript("arguments[0].scrollIntoView();", $("#openCustAccsBt"));
         $("#openCustAccsBtn").shouldBe(visible).click ();
+    }
+
+    public String checkClose(){
+        return $x(("//td[@colspan]")).getText ();
     }
 }

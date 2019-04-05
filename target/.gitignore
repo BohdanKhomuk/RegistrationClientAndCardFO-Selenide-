@@ -5,6 +5,7 @@
 .idea
 target
 build
+test-results
 .allure
 allure-results
 test-output

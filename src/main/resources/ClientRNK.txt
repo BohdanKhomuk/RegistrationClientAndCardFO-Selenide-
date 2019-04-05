@@ -1,1 +1,1 @@
-Помилки при збереженні: ORA-04063: package body "BARS.EBP" has errors ORA-06508: PL/SQL: could not find program unit being called: "BARS.EBP" ORA-06512: at "BARS.TAIUD_CUSTADDRESS_DOCVALIDATE", line 11 ORA-04088: error during execution of trigger 'BARS.TAIUD_CUSTADDRESS_DOCVALIDATE' ORA-06512: at "BARS.KL", line 2000 ORA-06512: at line 1
+319816201
