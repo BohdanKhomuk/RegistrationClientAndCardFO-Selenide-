@@ -110,7 +110,7 @@ public class CustomerAccounts {
         //Other
         if (ReadingFromFile.read ( "Polygon.txt" ).equals( "53" )){
             $("#btnOTHERS").shouldBe(visible).click ();
-            frame.toTab3Frame();
+            frame.toTab3FrameAcc();
             $("#HREF_1").shouldBe(visible).click ();
             String mainWindows10 = getWebDriver ().getWindowHandle(); //запоминаем первое окно
             for(String windowsHandls : getWebDriver ().getWindowHandles()){
@@ -120,7 +120,7 @@ public class CustomerAccounts {
             }
             $("#r_1").shouldBe(visible).click ();
             switchTo().window(mainWindows10);
-            frame.toTab3Frame ();
+            frame.toTab3FrameAcc ();
             $("#btnSPECPARAM").shouldBe(visible).click ();
         }
         $("#VALUE_5").shouldBe(visible).doubleClick ();

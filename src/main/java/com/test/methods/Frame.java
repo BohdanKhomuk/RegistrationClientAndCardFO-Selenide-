@@ -31,12 +31,6 @@ public class Frame {
         switchTo().frame($("#Tab2"));
     }
 
-    public void toTab3Frame(){
-        todefCont();
-        toMainFrame();
-        switchTo().frame($("#Tab3"));
-    }
-
     public void toTab3FrameAcc(){
         todefCont();
         //toMainFrame();

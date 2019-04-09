@@ -25,9 +25,11 @@
                 <artifactId>allure-maven</artifactId>
                 <version>2.9</version>
                 <configuration>
-                    <reportVersion>2.8.1</reportVersion>
+                    <reportVersion>2.10.0</reportVersion>
+                    <allureDownloadUrl>https://dl.bintray.com/qameta/maven/io/qameta/allure/allure-commandline/2.10.0/allure-commandline-2.10.0.zip</allureDownloadUrl>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -43,7 +45,7 @@
                 <version>2.22.1</version>
                 <configuration>
                     <systemPropertyVariables>
-                        <selenide.baseUrl>http://10.10.17.44:8080/barsroot</selenide.baseUrl>
+                        <selenide.baseUrl>http://10.10.17.40:8082/barsroot</selenide.baseUrl>
                     </systemPropertyVariables>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <testFailureIgnore>false</testFailureIgnore>
