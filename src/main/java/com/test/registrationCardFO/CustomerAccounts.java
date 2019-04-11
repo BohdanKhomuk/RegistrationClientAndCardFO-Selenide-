@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +38,12 @@ public class CustomerAccounts {
         return $(("#btnCVK")).getText ();
     }
 
-    public void saveOptions(){
+    private void saveOptions() throws IOException {
         frame.todefCont ();
         List<SelenideElement> linkElements1 = $$(By.tagName("head"));
         System.out.println ( linkElements1 );
         $("#btSave").shouldBe(visible).click ();
-        frame.toTab3FrameAcc();
+        frame.toTabFrameAcc("#Tab3");
 
         //Confirmation window 1
         checkPageAvailability.threePage ("T1" );
@@ -50,10 +51,17 @@ public class CustomerAccounts {
 
         //Confirmation window 2
         checkPageAvailability.threePage ( "T1" );
+
+        if (ReadingFromFile.read ( "Polygon.txt" ).equals( "DB OBMMFOT" )) {
+            Runtime.getRuntime ( ).exec ( ".\\Cancel.exe" );
+            switchTo ( ).defaultContent ( );
+        }
+
         $x("//*[@value='Ok']").shouldBe(visible).click ();
+        //getWebDriver ().navigate ().refresh ();
         checkPageAvailability.twoPage ( "ctl00" );
 
-        $("#bTab3").shouldBe(visible).click ();
+        // $("#bTab3").shouldBe(visible).click ();
         String mainWindows = getWebDriver ().getWindowHandle();
         System.out.println ( "Win01 " + mainWindows );
         switchTo ().window ( mainWindows ).close ();
@@ -68,7 +76,31 @@ public class CustomerAccounts {
         System.out.println ( "id7 " + id7 );
     }
 
-    public void createCustAcc(String nsb, String value){
+    public void saveOptionsEdit() {
+        frame.todefCont ();
+        List<SelenideElement> linkElements1 = $$(By.tagName("head"));
+        System.out.println ( linkElements1 );
+        $("#btSave").shouldBe(visible).click ();
+        frame.toTabFrameAcc("#Tab3");
+
+        //Confirmation window 1
+        checkPageAvailability.threePage ("T1" );
+        $("#btOk").shouldBe(visible).click ();
+
+        //Confirmation window 2
+        checkPageAvailability.threePage ( "T1" );
+        $x("//*[@value='Ok']").shouldBe(visible).click ();
+        checkPageAvailability.twoPage ( "ctl00" );
+
+        // $("#bTab3").shouldBe(visible).click ();
+        String mainWindows = getWebDriver ().getWindowHandle();
+        switchTo ().window ( mainWindows ).close ();
+        ArrayList<String> tabs1237 = new ArrayList<> ( getWebDriver ().getWindowHandles ( ) );
+        switchTo ( ).window ( tabs1237.get ( 0 ) );
+        SelenideElement elementID7 = $x("//*[@id]");
+    }
+
+    public void createCustAcc(String nsb, String value) throws IOException {
 
         $("#btOpen").shouldBe(visible).click ();
 
@@ -79,7 +111,7 @@ public class CustomerAccounts {
         System.out.println ( "id1344 " + id1344 );
         checkPageAvailability.twoPage ( "ctl00" );
         getWebDriver ().manage ().window ().maximize ();
-        frame.toTab0FrameAcc();
+        frame.toTabFrameAcc("#Tab0");
         $("#tbNbs").shouldBe(visible).setValue ( nsb );
         $("#bAccountMask").shouldBe(visible).click ();
         $("#ddOb22").shouldBe(visible).click ();
@@ -88,12 +120,13 @@ public class CustomerAccounts {
         $("#td_21").shouldBe(visible).click ();
         checkPageAvailability.twoPage ( "ctl00" );
 
-        //Special parameters
+        //Other
         $("#bTab3").shouldBe(visible).click ();
-        frame.toTab3FrameAcc();
-        if (ReadingFromFile.read ( "Polygon.txt" ).equals( "DB OBMMFOT" )){
+        frame.toTabFrameAcc("#Tab3");
+
+        if (ReadingFromFile.read ( "Polygon.txt" ).equals( " " )){
             $("#btnOTHERS").shouldBe(visible).click ();
-            frame.toTab3FrameAcc();
+            frame.toTabFrameAcc("#Tab3");
             $("#HREF_1").shouldBe(visible).click ();
             String mainWindows10 = getWebDriver ().getWindowHandle(); //запоминаем первое окно
             for(String windowsHandls : getWebDriver ().getWindowHandles()){
@@ -103,26 +136,10 @@ public class CustomerAccounts {
             }
             $("#r_1").shouldBe(visible).click ();
             switchTo().window(mainWindows10);
-            frame.toTab3FrameAcc ();
+            frame.toTabFrameAcc ("#Tab0");
             $("#btnSPECPARAM").shouldBe(visible).click ();
         }
 
-        //Other
-        if (ReadingFromFile.read ( "Polygon.txt" ).equals( "53" )){
-            $("#btnOTHERS").shouldBe(visible).click ();
-            frame.toTab3FrameAcc();
-            $("#HREF_1").shouldBe(visible).click ();
-            String mainWindows10 = getWebDriver ().getWindowHandle(); //запоминаем первое окно
-            for(String windowsHandls : getWebDriver ().getWindowHandles()){
-                if(!windowsHandls.equals(mainWindows10)){
-                    switchTo().window(windowsHandls);
-                }
-            }
-            $("#r_1").shouldBe(visible).click ();
-            switchTo().window(mainWindows10);
-            frame.toTab3FrameAcc ();
-            $("#btnSPECPARAM").shouldBe(visible).click ();
-        }
         $("#VALUE_5").shouldBe(visible).doubleClick ();
         $("#VALUE").shouldBe(visible).setValue ( value );
         $x("//input[@type='button' and @value='Зберегти']").shouldBe(visible).click ();
@@ -152,20 +169,20 @@ public class CustomerAccounts {
             }
         }
 
-        frame.toTab0FrameAcc();
+        frame.toTabFrameAcc("#Tab0");
         getWebDriver ().manage ().window ().maximize ();
         $("#tbNlsAlt").shouldBe(visible).setValue ( nlsAlt );
         //Financial details -----------------------------//
         frame.todefCont ();
         $("#bTab1").shouldBe(visible).click ();
-        frame.toTab1FrameAcc();
+        frame.toTabFrameAcc("#Tab1");
         $("#ddVidBlkD").shouldBe(visible).click ();
 
         String mainWindows3 = getWebDriver().getWindowHandle(); //запоминаем первое окно
         checkPageAvailability.threePage ( "webService" );
         $("#td_29").shouldBe(visible).click ();
         switchTo().window(mainWindows3);
-        frame.toTab1FrameAcc();
+        frame.toTabFrameAcc("#Tab1");
         $("#ddVidBlkK").shouldBe(visible).click ();
         String mainWindows45 = getWebDriver ().getWindowHandle(); //запоминаем первое окно
         checkPageAvailability.threePage ( "webService" );
@@ -174,7 +191,7 @@ public class CustomerAccounts {
         frame.todefCont ();
         //Access rights ---------------------------------//
         $("#bTab2").shouldBe(visible).click ();
-        frame.toTab2FrameAcc();
+        frame.toTabFrameAcc("#Tab2");
         $("#btAdd").shouldBe(visible).click ();
         String mainWindows5 = getWebDriver().getWindowHandle(); //запоминаем первое окно
 
@@ -184,7 +201,7 @@ public class CustomerAccounts {
         frame.todefCont ();
         //Special parameters
         $("#bTab3").shouldBe(visible).click ();
-        frame.toTab3FrameAcc();
+        frame.toTabFrameAcc("#Tab3");
         $("#btnSPECPARAM").shouldBe(visible).click ();
     }
 

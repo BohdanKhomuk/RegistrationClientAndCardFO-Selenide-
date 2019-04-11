@@ -16,6 +16,8 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.*;
 import org.junit.rules.TestRule;
 
+import java.io.IOException;
+
 import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -62,11 +64,13 @@ public class AllTest {
         transitionToReg.goingToRegister ( RandomWordsAndNumber.randomNumber ( 10, 99999 ) );
         //      Basic details
         System.out.println((char) 27 + "[33mРеєстрація клієнта(ФО): Основні реквізити" + (char) 27 + "[0m");
+
+        // IPN
+        basicDetails.enterOKPO( "0000000000" );
+
         basicDetails.enterFIO( gender.Surname(), gender.Name(), gender.Patronymic() );
         // Clien adress
         basicDetails.enterAddress( RandomWordsAndNumber.randomNumber( 100000, 999999  ), "Київська обл.", "Обухівський район", "Обухівв", "Варвари", "54");
-        // IPN
-        basicDetails.enterOKPO( "0000000000" );
 
         System.out.println((char) 27 + "[33mРеєстрація клієнта(ФО): Реквізити клієнта" + (char) 27 + "[0m");
         transitionToReg.clickClientDetailBtn();
@@ -92,7 +96,7 @@ public class AllTest {
     }
 
     @Test //enabled = false)
-    public void secondTest_customerAccountTest(){
+    public void secondTest_customerAccountTest() throws IOException {
         mainPage.enterFunction( "Реєстрація Клієнтів і Рахунків" + "\n" );
         System.out.println((char) 27 + "[33mСтворення рахунку клієнта(ФО)" + (char) 27 + "[0m");
 
@@ -110,7 +114,7 @@ public class AllTest {
         Assert.assertEquals("  БПК   ", customerAccounts.getTextBtnBPK());
         Assert.assertEquals(" ЦВК  ", customerAccounts.getTextBtnCVK());
         // Assert.assertEquals("  Інші   ", customerAccounts.getTextBtnOTHERS());
-        customerAccounts.saveOptions();
+        customerAccounts.saveOptionsEdit ();
         System.out.println((char) 27 + "[32m[Passed]----------Тест редагування рахунку клієнта(ФО) завершено успішно!----------[Passed]" + (char) 27 + "[0m");
 
         System.out.println((char) 27 + "[33mВидалення рахунку клієнта(ФО)" + (char) 27 + "[0m");
